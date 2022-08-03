@@ -2,40 +2,38 @@ import React, {ChangeEvent, FormEvent, useEffect, useState} from 'react'
 import {v1} from 'uuid'
 import './CreateNotePage.css'
 import {AppRootStateType, useTypedDispatch} from '../../state/store';
-import {getTZTC} from '../../state/time-zone-reducer';
+import {getTimeZonesTC} from '../../state/time-zone-reducer';
 import {useSelector} from 'react-redux';
+import {createNoteTC, getExactTimeTC} from '../../state/data-reducer';
 
 export const CreateNotePage = () => {
 
     const dispatch = useTypedDispatch()
-    const timeZones = useSelector<AppRootStateType, string[]>(state => state.timeZone.tz)
+    const timeZones = useSelector<AppRootStateType, string[]>(state => state.timeZone.timeZones)
 
-    const [inputValues, setInputValue] = useState<InputValuesType>({
+    const [note, setNote] = useState<NoteType>({
         id: v1(),
         text: '',
         sign: '',
-        date: ''
+        date: '',
+        timeZone:''
     })
+    console.log('inputValues',note.timeZone)
 
-    type InputValuesType = {
-        id: string
-        text: string
-        sign: string
-        date: string
-    }
-
-    const handleChange = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => {
+    const handleChange = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement> | ChangeEvent<HTMLSelectElement>) => {
         const {name, value} = e.target
-        setInputValue({...inputValues, [name]: value})
+        setNote({...note, [name]: value})
     }
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-        //dispatch(createUserTC(inputValues))
+        dispatch(getExactTimeTC(note.timeZone))
+        dispatch(createNoteTC(note))
         e.preventDefault()
+        setNote({...note, text: '', id: v1(), date: ''})
     }
 
     useEffect(() => {
-        dispatch(getTZTC())
-    }, [timeZones])
+        dispatch(getTimeZonesTC())
+    }, [])
 
     return (
         <div>
@@ -50,7 +48,7 @@ export const CreateNotePage = () => {
                         className={'text'}
                         placeholder={'Запись'}
                         name={'text'}
-                        value={inputValues.text}
+                        value={note.text}
                         onChange={(e) => handleChange(e)}
                         autoFocus
                     />
@@ -61,15 +59,16 @@ export const CreateNotePage = () => {
                             placeholder={'Подпись*'}
                             className={'input'}
                             name={'sign'}
-                            value={inputValues.sign}
+                            value={note.sign}
                             onChange={(e) => handleChange(e)}
                         />
                     </div>
                     <div>
                         <select
                             className={'select'}
-                            name="nationality"
-                            //onChange={(e) => handleChange(e)}
+                            name='timeZone'
+                            onChange={(e) => handleChange(e)}
+                            value={note.timeZone}
                         >
                             {timeZones.map((o, i) => (<option key={o + i} value={o}>{o}</option>))}
                         </select>
@@ -84,3 +83,13 @@ export const CreateNotePage = () => {
         </div>
     )
 }
+
+//types
+export type NoteType = {
+    id: string
+    text: string
+    sign: string
+    date: string
+    timeZone: string
+}
+
