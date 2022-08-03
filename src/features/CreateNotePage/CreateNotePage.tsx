@@ -1,14 +1,19 @@
-import React, {ChangeEvent, FormEvent, useState} from 'react'
+import React, {ChangeEvent, FormEvent, useEffect, useState} from 'react'
 import {v1} from 'uuid'
 import './CreateNotePage.css'
+import {AppRootStateType, useTypedDispatch} from '../../state/store';
+import {getTZTC} from '../../state/time-zone-reducer';
+import {useSelector} from 'react-redux';
 
 export const CreateNotePage = () => {
+
+    const dispatch = useTypedDispatch()
+    const timeZones = useSelector<AppRootStateType, string[]>(state => state.timeZone.tz)
 
     const [inputValues, setInputValue] = useState<InputValuesType>({
         id: v1(),
         text: '',
         sign: '',
-        tz: '',
         date: ''
     })
 
@@ -16,7 +21,6 @@ export const CreateNotePage = () => {
         id: string
         text: string
         sign: string
-        tz: string
         date: string
     }
 
@@ -28,6 +32,10 @@ export const CreateNotePage = () => {
         //dispatch(createUserTC(inputValues))
         e.preventDefault()
     }
+
+    useEffect(() => {
+        dispatch(getTZTC())
+    }, [timeZones])
 
     return (
         <div>
@@ -63,10 +71,7 @@ export const CreateNotePage = () => {
                             name="nationality"
                             //onChange={(e) => handleChange(e)}
                         >
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            {/*{nationalityDate.map((o, i) => (<option key={o + i} value={o}>{o}</option>))}*/}
+                            {timeZones.map((o, i) => (<option key={o + i} value={o}>{o}</option>))}
                         </select>
                     </div>
                 </div>

@@ -3,7 +3,7 @@ import './NotesPage.css'
 
 export const NotesPage = () => {
 
-    const dateArray = ['1','2','3','4','5','6']
+    const dateArray : string[] = ['1','2','3','4','5','6']
 
 
     return (

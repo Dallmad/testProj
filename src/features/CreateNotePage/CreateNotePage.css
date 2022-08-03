@@ -12,6 +12,7 @@
     padding: 5px 0 0 10px;
     overflow: hidden;
     resize: none;
+    border-radius: 3px;
 }
 
 .sign_container {
@@ -23,17 +24,20 @@
 }
 
 .input {
-    width: 390px;
+    width: 336px;
     margin-right: 20px;
     height: 100%;
     box-sizing: border-box;
     padding-left: 10px;
+    border-radius: 3px;
+    border: 1px solid rgb(118,118,118);
 }
 
 .select {
     min-width: 190px;
     height: 100%;
     padding-left: 10px;
+    border-radius: 3px;
 }
 
 .button {
