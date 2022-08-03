@@ -7,7 +7,7 @@ import {AppRoutes} from './features/Routes/Routes';
 export const App = () => {
 
     return (
-        <div>
+        <div className={'app'}>
             <Header/>
             <AppRoutes/>
         </div>
