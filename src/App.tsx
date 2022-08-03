@@ -1,12 +1,15 @@
 import React from 'react'
 import './App.css'
+import {Header} from './features/Header/Header';
+import {AppRoutes} from './features/Routes/Routes';
 
 
 export const App = () => {
 
     return (
         <div>
-            <h1>Test!!!!!!!!!!!!</h1>
+            <Header/>
+            <AppRoutes/>
         </div>
     )
 }
