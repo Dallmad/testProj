@@ -1,0 +1,13 @@
+.container_notes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 600px;
+    margin-top: 10px;
+}
+.item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 50px;
+}

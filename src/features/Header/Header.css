@@ -3,9 +3,18 @@
     flex-direction: row;
     justify-content: space-around;
     width: 600px;
+    text-transform: uppercase;
 }
 .link {
     text-decoration: none;
+    color: #69696c;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    line-height: 16px;
+
+}
+.link_active {
     color: #4a71b0;
     font-size: 14px;
     font-weight: 600;
