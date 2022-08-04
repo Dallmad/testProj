@@ -1,16 +1,20 @@
 import React, {ChangeEvent, FormEvent, useEffect, useState} from 'react'
 import {v1} from 'uuid'
 import './CreateNotePage.css'
-import {useTypedDispatch} from '../../state/store'
+import {AppRootStateType, useTypedDispatch} from '../../state/store'
 import {restoreState, saveState} from '../../api/localStorage/localStorage'
 import {NoteType} from '../../common/types'
 import {getExactTimeTC} from '../../state/middlewares/data'
 import {getTimeZonesTC} from '../../state/middlewares/time-zone'
-import {date, isLoading, timeZones} from '../../state/selectors/selectors'
+import {useSelector} from 'react-redux';
 
 export const CreateNotePage = () => {
 
     const dispatch = useTypedDispatch()
+
+    const timeZones = useSelector<AppRootStateType, string[]>(state => state.timeZone.timeZones)
+    const date = useSelector<AppRootStateType, string>(state => state.notes.date)
+    const isLoading = useSelector<AppRootStateType, boolean>(state => state.notes.isLoading)
 
     const [valueSign, setValueSign] = useState<string>('')
     const [valueTimeZone, setValueTimeZone] = useState<string>('')
