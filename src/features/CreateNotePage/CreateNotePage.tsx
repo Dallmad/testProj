@@ -14,14 +14,20 @@ export const CreateNotePage = () => {
     const date = useSelector<AppRootStateType, string>(state => state.notes.date)
     const isLoading = useSelector<AppRootStateType, boolean>(state => state.notes.isLoading)
 
+    const [valueSign, setValueSign] = useState<string>('')
+    const [valueTimeZone, setValueTimeZone] = useState<string>('')
+    const restoreFromLocalStorage = () => {
+        setValueSign(restoreState('sign', valueSign))
+        setValueTimeZone(restoreState('time-zone', valueTimeZone))
+    }
+
     const [note, setNote] = useState<NoteType>({
         id: v1(),
         text: '',
-        sign: '',
+        sign: valueSign,
         date: '',
-        timeZone:''
+        timeZone: valueTimeZone
     })
-    console.log('inputValues',note)
 
     const handleChange = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement> | ChangeEvent<HTMLSelectElement>) => {
         const {name, value} = e.target
@@ -31,26 +37,20 @@ export const CreateNotePage = () => {
         dispatch(getExactTimeTC(note))
         e.preventDefault()
          saveToLocalSlorage()
-        //setNote({...note, text: '', id: v1(), date: ''})
     }
     const saveToLocalSlorage = () => {
         saveState<string>('sign', note.sign)
         saveState<string>('time-zone', note.timeZone)
     }
-    const [valueSign, setValueSign] = useState<string>('')
-    const [valueTimeZone, setValueTimeZone] = useState<string>('')
-    const restoreFromLocalStorage = () => {
-        setValueSign(restoreState('sign', valueSign))
-        setValueTimeZone(restoreState('time-zone', valueTimeZone))
-    }
-    console.log('valueS',valueSign)
-    console.log('valueTZ',valueTimeZone)
+
+
+
     useEffect(() => {
         setNote({...note, date})
         restoreFromLocalStorage()
         setNote({...note, sign: valueSign, timeZone: valueTimeZone})
         dispatch(getTimeZonesTC())
-    }, [date,isLoading])
+    }, [date,isLoading,valueSign,valueTimeZone])
 
     return (
         <div>
