@@ -1,17 +1,19 @@
-import {Dispatch} from 'redux'
 import {NoteType} from '../features/CreateNotePage/CreateNotePage'
 //import {noteAPI} from '../api/note-api'
 import {timeZonesAPI} from '../api/timeZones-api'
+import {AppRootStateType, TypedDispatch} from './store'
 
 const CREATE_NOTE = 'CREATE_NOTE'
 const GET_EXACT_TIME = 'GET_EXACT_TIME'
+const LOADING = 'LOADING'
 
 const initialState = {
     id: '',
     text: '',
     sign: '',
     timeZone: '',
-    date: ''
+    date: '',
+    isLoading: false
 }
 
 export const dataReducer = (state: InitialStateType = initialState, action: CreateNoteActionsType): InitialStateType => {
@@ -20,6 +22,8 @@ export const dataReducer = (state: InitialStateType = initialState, action: Crea
             return {...state, ...action.note}
         case GET_EXACT_TIME:
             return {...state, date: action.date}
+        case LOADING:
+            return {...state, isLoading: action.isLoading}
         default:
             return state
     }
@@ -27,36 +31,38 @@ export const dataReducer = (state: InitialStateType = initialState, action: Crea
 // actions
 export const createNote = (note: NoteType) => ({type: CREATE_NOTE, note} as const)
 export const getExactTime = (date: string) => ({type: GET_EXACT_TIME, date} as const)
+export const loading = (isLoading: boolean) => ({type: LOADING, isLoading} as const)
 
 // thunks
-export const createNoteTC = (note: NoteType) => async (dispatch: Dispatch) => {
+export const createNoteTC = () => async (dispatch: TypedDispatch, getState: () => AppRootStateType) => {
+    let note: NoteType = getState().notes
     try {
         //dispatch(loading(true))
         //await noteAPI.createNote(note)
         dispatch(createNote(note))
     } catch (error) {
         if (error instanceof Error) {
-            console.log('error',error)
+            console.log('error', error)
             //handleServerNetworkError(error.message, dispatch)
         }
     } finally {
-        //dispatch(loading(false))
+        dispatch(loading(false))
     }
 }
 
 
-export const getExactTimeTC = (timeZone: string) => async (dispatch: Dispatch) => {
+export const getExactTimeTC = (note: NoteType) => async (dispatch: TypedDispatch) => {
+    dispatch(createNote(note))
     try {
-        //dispatch(loading(true))
-        let response = await timeZonesAPI.getExactTime(timeZone)
+        dispatch(loading(true))
+        let response = await timeZonesAPI.getExactTime(note.timeZone)
         dispatch(getExactTime(response.data.datetime.toString() as any))
+        dispatch(createNoteTC())
     } catch (error) {
         if (error instanceof Error) {
-            console.log('error',error)
+            console.log('error', error)
             //handleServerNetworkError(error.message, dispatch)
         }
-    } finally {
-        //dispatch(loading(false))
     }
 }
 // types
@@ -65,3 +71,4 @@ type InitialStateType = typeof initialState
 export type CreateNoteActionsType =
     ReturnType<typeof createNote>
     | ReturnType<typeof getExactTime>
+    | ReturnType<typeof loading>

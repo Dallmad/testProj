@@ -30,7 +30,7 @@
     box-sizing: border-box;
     padding-left: 10px;
     border-radius: 3px;
-    border: 1px solid rgb(118,118,118);
+    border: 1px solid rgb(118, 118, 118);
 }
 
 .select {
@@ -51,11 +51,13 @@
     margin-left: 500px;
     cursor: pointer;
 }
-.button:hover {
-    background-color: #7492be;
-    transition: 0.5s;
-}
+
 .button:active {
     background-color: #0c0c18;
     transition: 0.2s;
+}
+
+.button:disabled {
+    opacity: 0.4;
+    cursor: auto;
 }

@@ -1,5 +1,5 @@
-import {Dispatch} from 'redux';
 import {timeZonesAPI} from '../api/timeZones-api';
+import {TypedDispatch} from './store';
 
 const GET_TZ = 'GET_TZ'
 
@@ -20,7 +20,7 @@ export const timeZoneReducer = (state: InitialStateType = initialState, action: 
 export const getTimeZones = (timeZones: string[]) => ({type: GET_TZ, timeZones} as const)
 
 // thunks
-export const getTimeZonesTC = () => async (dispatch: Dispatch) => {
+export const getTimeZonesTC = () => async (dispatch: TypedDispatch) => {
     try {
         //dispatch(loading(true))
         let response = await timeZonesAPI.getTimeZones()
