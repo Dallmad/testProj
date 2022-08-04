@@ -1,6 +1,7 @@
 import {AxiosResponse} from 'axios'
-import {timeZones} from './instance';
-import {TimeZonesType} from '../state/time-zone-reducer';
+import {timeZones} from './instance'
+import {TimeZonesType} from '../state/reducers/time-zone'
+import {DateType} from '../common/types'
 
 export const timeZonesAPI = {
     getTimeZones() {
@@ -9,8 +10,4 @@ export const timeZonesAPI = {
     getExactTime(timeZone:string) {
         return timeZones.get<string,AxiosResponse<DateType>>(`${timeZone}`)
     }
-}
-
-export type DateType = {
-    datetime: DateConstructor
 }

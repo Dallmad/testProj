@@ -1,6 +1,6 @@
 import {AxiosResponse} from 'axios'
 import {setNote} from './instance'
-import {NoteType} from '../features/CreateNotePage/CreateNotePage'
+import {NoteType} from '../common/types'
 
 export const noteAPI = {
     createNote(data: NoteType) {

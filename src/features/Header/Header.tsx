@@ -1,11 +1,8 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import {PATH} from '../Routes/Routes'
 import './Header.css'
-
-const CREATE_NOTE = 'создать запись'
-const NOTES = 'записи'
-
+import {CREATE_NOTE, NOTES} from '../../constants/header'
+import {PATH} from '../../constants/routes'
 
 export const Header = () => {
 

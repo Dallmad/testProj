@@ -1,12 +1,14 @@
 import React from 'react'
 import './Error404.css'
+import {ERROR404, PAGE_NOT_FOUND} from '../../constants/error'
 
 export const Error404 = () => {
+
     return (
         <div className={'error'}>
-            <>404</>
+            <>{ERROR404}</>
             {'\u00A0'}
-            <>Page not found!</>
+            <>{PAGE_NOT_FOUND}</>
         </div>
     )
 }
