@@ -10,7 +10,7 @@ export const AppRoutes = () => {
     return (
         <div>
             <Routes>
-                <Route path='/' element={<Navigate to={PATH.CREATE_NOTE}/>}/>
+                <Route path="/" element={<Navigate to={PATH.CREATE_NOTE}/>}/>
                 <Route path={PATH.CREATE_NOTE} element={<CreateNotePage/>}/>
                 <Route path={PATH.NOTES} element={<NotesPage/>}/>
                 <Route path={PATH.ERROR404} element={<Error404/>}/>

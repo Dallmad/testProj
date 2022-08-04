@@ -5,6 +5,7 @@
     width: 600px;
     text-transform: uppercase;
 }
+
 .link {
     text-decoration: none;
     color: #69696c;
@@ -14,6 +15,7 @@
     line-height: 16px;
 
 }
+
 .link_active {
     color: #4a71b0;
     font-size: 14px;

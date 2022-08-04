@@ -1,8 +1,8 @@
 import {useDispatch} from 'react-redux'
 import {applyMiddleware, combineReducers, createStore} from 'redux'
 import thunkMiddleware, {ThunkDispatch} from 'redux-thunk'
-import {timeZoneReducer, TZActionsType} from './reducers/time-zone';
-import {CreateNoteActionsType,dataReducer} from './reducers/data';
+import {timeZoneReducer, TZActionsType} from './reducers/time-zone'
+import {CreateNoteActionsType, dataReducer} from './reducers/data'
 
 const rootReducer = combineReducers({
     timeZone: timeZoneReducer,
@@ -19,4 +19,4 @@ export type AppActionType = TZActionsType | CreateNoteActionsType
 export type TypedDispatch = ThunkDispatch<AppRootStateType, any, AppActionType>
 
 // @ts-ignore
-window.store = store;
+window.store = store

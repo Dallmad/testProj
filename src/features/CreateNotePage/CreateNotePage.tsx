@@ -6,7 +6,7 @@ import {restoreState, saveState} from '../../api/localStorage/localStorage'
 import {NoteType} from '../../common/types'
 import {getExactTimeTC} from '../../state/middlewares/data'
 import {getTimeZonesTC} from '../../state/middlewares/time-zone'
-import {useSelector} from 'react-redux';
+import {useSelector} from 'react-redux'
 
 export const CreateNotePage = () => {
 
@@ -18,6 +18,7 @@ export const CreateNotePage = () => {
 
     const [valueSign, setValueSign] = useState<string>('')
     const [valueTimeZone, setValueTimeZone] = useState<string>('')
+
     const restoreFromLocalStorage = () => {
         setValueSign(restoreState('sign', valueSign))
         setValueTimeZone(restoreState('time-zone', valueTimeZone))
@@ -36,10 +37,10 @@ export const CreateNotePage = () => {
         setNote({...note, [name]: value})
     }
 
-     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         dispatch(getExactTimeTC(note))
         e.preventDefault()
-         saveToLocalSlorage()
+        saveToLocalSlorage()
     }
 
     const saveToLocalSlorage = () => {
@@ -52,7 +53,7 @@ export const CreateNotePage = () => {
         restoreFromLocalStorage()
         setNote({...note, sign: valueSign, timeZone: valueTimeZone})
         dispatch(getTimeZonesTC())
-    }, [date,isLoading,valueSign,valueTimeZone])
+    }, [date, isLoading, valueSign, valueTimeZone])
 
     return (
         <div>
@@ -85,7 +86,7 @@ export const CreateNotePage = () => {
                     <div>
                         <select
                             className={'select'}
-                            name='timeZone'
+                            name="timeZone"
                             onChange={(e) => handleChange(e)}
                             value={note.timeZone}
                         >

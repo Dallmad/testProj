@@ -8,7 +8,7 @@ export const getTimeZonesTC = () => async (dispatch: TypedDispatch) => {
         dispatch(getTimeZones(response.data as any))
     } catch (error) {
         if (error instanceof Error) {
-            console.log('error',error)
+            console.log('error', error)
         }
     }
 }
