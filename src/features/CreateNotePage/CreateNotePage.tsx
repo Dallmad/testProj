@@ -40,10 +40,11 @@ export const CreateNotePage = () => {
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         dispatch(getExactTimeTC(note))
         e.preventDefault()
-        saveToLocalSlorage()
+        saveToLocalStorage()
+        setNote({...note, text:'', date: '', id: v1()})
     }
 
-    const saveToLocalSlorage = () => {
+    const saveToLocalStorage = () => {
         saveState<string>('sign', note.sign)
         saveState<string>('time-zone', note.timeZone)
     }
