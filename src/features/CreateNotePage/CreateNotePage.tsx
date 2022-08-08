@@ -82,6 +82,7 @@ export const CreateNotePage = () => {
                             name={'sign'}
                             value={note.sign}
                             onChange={(e) => handleChange(e)}
+                            maxLength={100}
                         />
                     </div>
                     <div>
